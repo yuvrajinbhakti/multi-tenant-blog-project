@@ -1,3 +1,4 @@
+import Nav from "../components/nav";
 export default function OrgLandingPage() {
   return (
     <main>
