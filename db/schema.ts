@@ -17,3 +17,6 @@ export const blogTable = pgTable('blogs',{
 //     password: varchar({length: 80}).notNull(),
 //     orgId: text().notNull(),
 // })
+
+export type CreateBlogType = typeof blogTable.$inferInsert;
+export type BlogType = typeof blogTable.$inferSelect;

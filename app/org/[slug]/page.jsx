@@ -4,9 +4,21 @@ import Nav from "../../components/nav";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { createBlog } from "./action";
+import { useOrganization } from "@clerk/nextjs";
 export default function OrgLandingPage() {
   const [blogContent,setBlogContent] = useState('');
-const [blogTitle,setBlogTitle] = useState('');
+  const [blogTitle,setBlogTitle] = useState('');
+  const {organization} = useOrganization();
+  const handleCreateBlog = async ()=>{
+    if(!organization?.id) return;
+    await createBlog({
+      body: blogContent,
+      orgId: organization?.id,
+      title: blogTitle,
+    })
+  }
+
   return (
     <main>
         <Nav/>
@@ -17,7 +29,7 @@ const [blogTitle,setBlogTitle] = useState('');
               value={blogContent} 
               onChange={(e)=>setBlogContent(e.target.value)} />
               {/* {blogContent} */} 
-            <Button>Create Blog</Button>
+            <Button variant="outline" className="mt-2" onClick={handleCreateBlog }>Create Blog</Button>
         </div>
     </main>
   );
